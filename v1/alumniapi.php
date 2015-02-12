@@ -5,7 +5,7 @@
  * @version 2015-02-06 First version
  */
 
-class irbpeople_api
+class alumniapi
 {
 	private $db; // database
 

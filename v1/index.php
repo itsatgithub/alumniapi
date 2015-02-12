@@ -18,10 +18,10 @@
  */
 
 // API file
-require_once 'irbpeople_api.php';
+require_once 'alumniapi.php';
 
 // Creates a new instance of the irbpeople_api class
-$api = new irbpeople_api();
+$api = new alumniapi();
 
 // return message
 $message = array();
