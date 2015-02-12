@@ -51,6 +51,8 @@ class alumniapi
 		. ($params['alumni_personalcode'] == ''? '' : ' AND pe.alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\'')
 		. ' ORDER BY pe.alumni_personalcode'
 		;		
+		echo $query;
+		
 		$list = array();
 		$result = $this->db->query($query);
 		while ($row = $result->fetch_assoc())
