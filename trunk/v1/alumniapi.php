@@ -41,30 +41,50 @@ class alumniapi
 	function get($params)
 	{
 		// get all codes in database
-		$query = 'SELECT pe.*'
-		. ', ti.description AS ti_description'
-		. ', ge.description AS ge_description'
+		$query = 'SELECT pe.alumni_personalcode AS alumni_personalcode'
+		. ', pe.titles AS titles'
+		. ', pe.firstname AS firstname'
+		. ', pe.surname AS surname'
+		. ', pe.irb_surname AS irb_surname'
+		. ', pe.gender AS gender'
+		. ', pe.nationality AS nationality'
+		. ', pe.nationality_2 AS nationality_2'
+		. ', pe.birth AS birth'
+		. ', pe.email AS email'
+		. ', pe.url AS url'
+		. ', pe.facebook AS facebook'
+		. ', pe.linkedin AS linkedin'
+		. ', pe.twitter AS twitter'
+		. ', pe.keywords AS keywords'
+		. ', pe.biography AS biography'
+		. ', pe.awards AS awards'
+		. ', pe.ORCIDID AS ORCIDID'
+		. ', pe.researcherid AS researcherid'
+		. ', pe.pubmedid AS pubmedid'	
 		. ' FROM alumni_personal AS pe'
-		. ' LEFT JOIN `alumni_titles` AS ti ON ti.alumni_titlescode = pe.titles'
-		. ' LEFT JOIN `gender` AS ge ON ge.gendercode = pe.gender'
 		. ' WHERE pe.verified = 1 AND pe.show_data = 1'
 		. ($params['alumni_personalcode'] == ''? '' : ' AND pe.alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\'')
 		. ' ORDER BY pe.alumni_personalcode'
-		;				
+		;			
 		$list = array();
 		$result = $this->db->query($query);
 		while ($row = $result->fetch_assoc())
 		{	 
 			// get all the external jobs
 			$array_aux = array();
-			$query2 = 'SELECT ej.*'
-			. ', se.description AS external_job_sectors_description'
-			. ', po.description AS external_job_positions_description'
-			. ', ty.description AS external_job_position_types_description'
+			$query2 = 'SELECT ej.current AS current'
+			. ', ej.start_date AS start_date'
+			. ', ej.end_date AS end_date'
+			. ', ej.external_job_positions AS external_job_positions'
+			. ', ej.comments AS comments'
+			. ', ej.external_job_sectors AS external_job_sectors'
+			. ', ej.institution AS institution'
+			. ', ej.address AS address'
+			. ', ej.postcode AS postcode'
+			. ', ej.city AS city'
+			. ', ej.country AS country'
+			. ', ej.telephone AS telephone'
 			. ' FROM alumni_external_jobs AS ej'
-			. ' LEFT JOIN `alumni_external_job_sectors` AS se ON se.alumni_external_job_sectorscode = ej.external_job_sectors'
-			. ' LEFT JOIN `alumni_external_job_positions` AS po ON po.alumni_external_job_positionscode = ej.external_job_positions'
-			. ' LEFT JOIN `alumni_job_position_types` AS ty ON ty.alumni_job_position_typescode = po.job_position_types'
 			. ' WHERE ej.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY ej.start_date'
 			;
@@ -76,12 +96,14 @@ class alumniapi
 
 			// get all the irb jobs
 			$array_aux = array();
-			$query3 = 'SELECT ij.*'
-			. ', po.description AS irb_job_positions_description'
-			. ', ty.description AS irb_job_position_types_description'
+			$query3 = 'SELECT ij.start_date AS start_date'
+			. ', ij.end_date AS end_date'
+			. ', ij.unit AS unit'
+			. ', ij.unit2 AS unit2'
+			. ', ij.research_group AS research_group'
+			. ', ij.research_group2 AS research_group2'
+			. ', ij.irb_job_positions AS irb_job_positions'
 			. ' FROM alumni_irb_jobs AS ij'
-			. ' LEFT JOIN `alumni_irb_job_positions` AS po ON po.alumni_irb_job_positionscode = ij.irb_job_positions'
-			. ' LEFT JOIN `alumni_job_position_types` AS ty ON ty.alumni_job_position_typescode = po.job_position_types'
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY ij.start_date'
 			;
@@ -90,7 +112,20 @@ class alumniapi
 				$array_aux[] = $row3;
 			}
 			$row['irb_jobs'] = $array_aux;
-
+			
+			// get all the communications
+			$array_aux = array();
+			$query4 = 'SELECT co.alumni_communicationscode AS alumni_communicationscode'
+			. ' FROM alumni_personal_communications AS co'
+			. ' WHERE co.alumni_personalcode = \'' . $row['alumni_personalcode'] . '\''
+			. ' ORDER BY co.alumni_communicationscode'
+			;
+			$result4 = $this->db->query($query4);
+			while ($row4 = $result4->fetch_assoc()) {
+				$array_aux[] = $row4;
+			}
+			$row['communications'] = $array_aux;
+				
 			// add new element to the list
 			$list[] = $row;
 		}
@@ -290,7 +325,8 @@ class alumniapi
 	 */
 	function get_titles()
 	{
-		$query = 'SELECT alumni_titlescode, description'
+		$query = 'SELECT at.alumni_titlescode AS alumni_titlescode'
+		. ', at.description AS description'
 		. ' FROM alumni_titles AS at'
 		. ' WHERE at.deleted = \'\''
 		. ' ORDER BY at.order_number'
@@ -312,7 +348,8 @@ class alumniapi
 	 */
 	function get_nationalities()
 	{
-		$query = 'SELECT nationalitycode, description'
+		$query = 'SELECT na.nationalitycode AS nationalitycode'
+		. ', na.description AS description'
 		. ' FROM nationality AS na'
 		. ' WHERE na.deleted = \'\''
 		. ' ORDER BY na.description'
@@ -334,7 +371,8 @@ class alumniapi
 	*/
 	function get_genders()
 	{
-		$query = 'SELECT gendercode, description'
+		$query = 'SELECT ge.gendercode AS gendercode'
+		.', ge.description AS description'
 		. ' FROM gender AS ge'
 		. ' WHERE ge.deleted = \'\''
 		. ' ORDER BY ge.description'
@@ -356,7 +394,8 @@ class alumniapi
 	*/
 	function get_countries()
 	{
-		$query = 'SELECT countrycode, description'
+		$query = 'SELECT co.countrycode AS countrycode'
+		.', co.description AS description'
 		. ' FROM country AS co'
 		. ' WHERE co.deleted = \'\''
 		. ' ORDER BY co.description'
@@ -378,10 +417,12 @@ class alumniapi
 	*/
 	function get_communications()
 	{
-		$query = 'SELECT alumni_communicationscode, description'
+		$query = 'SELECT ac.alumni_communicationscode AS alumni_communicationscode'
+		. ', ac.description AS description'
+		. ', ac.order_number AS order_number'
 		. ' FROM alumni_communications AS ac'
 		. ' WHERE ac.deleted = \'\''
-		. ' ORDER BY ac.description'
+		. ' ORDER BY ac.order_number'
 		;
 		$list = array();
 		if ($result = $this->db->query($query)) {
@@ -400,10 +441,11 @@ class alumniapi
 	*/
 	function get_external_jobs_positions()
 	{
-		$query = 'SELECT alumni_external_job_positionscode, description'
+		$query = 'SELECT jp.alumni_external_job_positionscode AS alumni_external_job_positionscode'
+		.', jp.description AS description'
 		. ' FROM alumni_external_job_positions AS jp'
 		. ' WHERE jp.deleted = \'\''
-		. ' ORDER BY jp.description'
+		. ' ORDER BY jp.order_number'
 		;
 		$list = array();
 		if ($result = $this->db->query($query)) {
@@ -414,18 +456,20 @@ class alumniapi
 		return $list;
 	}
 
+
 	/**
-	 * Get the list of external jobs sectors on JSON format
-	 * 
+	 * Get the list of IRB jobs positions on JSON format
+	 *
 	 * @param none
 	 * @return list of data
-	*/
-	function get_external_jobs_sectors()
+	 */
+	function get_irb_jobs_positions()
 	{
-		$query = 'SELECT alumni_external_job_sectorscode, description'
-		. ' FROM alumni_external_job_sectors AS js'
-		. ' WHERE js.deleted = \'\''
-		. ' ORDER BY js.description'
+		$query = 'SELECT ip.alumni_irb_job_positionscode AS alumni_irb_job_positionscode'
+		.', ip.description AS description'
+		. ' FROM alumni_external_job_positions AS ip'
+		. ' WHERE ip.deleted = \'\''
+		. ' ORDER BY ip.order_number'
 		;
 		$list = array();
 		if ($result = $this->db->query($query)) {
@@ -435,4 +479,34 @@ class alumniapi
 		}
 		return $list;
 	}
+	
+
+	/**
+	 * Get the list of jobs position types on JSON format
+	 *
+	 * @param none
+	 * @return list of data
+	 */
+	function get_jobs_position_types()
+	{
+		$query = 'SELECT pt.alumni_job_position_typescode AS alumni_job_position_typescode'
+		. ', pt.description AS description'
+		. ', pt.order_number AS order_number'
+		. ' FROM alumni_job_position_types AS pt'
+		. ' WHERE pt.deleted = \'\''
+		. ' ORDER BY pt.order_number'
+		;
+		$list = array();
+		if ($result = $this->db->query($query)) {
+			while ($row = $result->fetch_assoc()) {
+				$list[] = $row;
+			}
+		}
+		return $list;
+	}
+	
+
+	
+
+
 }
