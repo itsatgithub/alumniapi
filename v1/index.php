@@ -29,6 +29,9 @@ $message = array();
 // unserialize
 $_POST = unserialize($_POST["data"]);
 
+var_dump($_POST);
+break;
+
 switch($_POST["action"])
 {
 	case 'save':
