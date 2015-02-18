@@ -102,12 +102,13 @@ class alumniapi
             . ', un2.description AS unit2_description'
             . ', rg1.description AS research_group1_description'
             . ', rg2.description AS research_group2_description'
-			. ', ij.irb_job_positions AS irb_job_positions'
+			. ', po.description AS irb_job_position'
 			. ' FROM alumni_irb_jobs AS ij'
 			. ' LEFT JOIN `unit` AS un1 ON ij.unit = un1.unitcode'
 			. ' LEFT JOIN `unit` AS un2 ON ij.unit_2 = un2.unitcode'
 			. ' LEFT JOIN `research_group` AS rg1 ON ij.research_group = rg1.research_groupcode'
 			. ' LEFT JOIN `research_group` AS rg2 ON ij.research_group_2 = rg2.research_groupcode'
+            . ' LEFT JOIN `alumni_irb_job_positions` AS po ON po.alumni_irb_job_positionscode = ij.irb_job_positions'
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY ij.start_date'
 			;
@@ -460,29 +461,6 @@ class alumniapi
 		return $list;
 	}
 
-
-	/**
-	 * Get the list of IRB jobs positions on JSON format
-	 *
-	 * @param none
-	 * @return list of data
-	 */
-	function get_irb_jobs_positions()
-	{
-		$query = 'SELECT ip.alumni_irb_job_positionscode AS alumni_irb_job_positionscode'
-		.', ip.description AS description'
-		. ' FROM alumni_external_job_positions AS ip'
-		. ' WHERE ip.deleted = \'\''
-		. ' ORDER BY ip.order_number'
-		;
-		$list = array();
-		if ($result = $this->db->query($query)) {
-			while ($row = $result->fetch_assoc()) {
-				$list[] = $row;
-			}
-		}
-		return $list;
-	}
 	
 
 	/**
