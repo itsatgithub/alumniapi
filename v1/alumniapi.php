@@ -157,7 +157,7 @@ class alumniapi
 			. ', irb_surname'
 			. ', gender'
 			. ', nationality'
-			. ', nationality_2'
+			. ($params['nationality_2'] == ''? '' : ', nationality_2')			
 			. ', birth'
 			. ', email'
 			. ', url'
@@ -180,7 +180,7 @@ class alumniapi
 			. ', \'' . $this->db->real_escape_string($params['irb_surname']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['gender']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['nationality']) .'\''
-			. ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\''
+			. ($params['nationality_2'] == ''? '' : ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\'')			
 			. ', \'' . $this->db->real_escape_string($params['birth']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['email']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['url']) .'\''
