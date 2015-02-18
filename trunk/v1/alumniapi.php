@@ -98,12 +98,16 @@ class alumniapi
 			$array_aux = array();
 			$query3 = 'SELECT ij.start_date AS start_date'
 			. ', ij.end_date AS end_date'
-			. ', ij.unit AS unit'
-			. ', ij.unit2 AS unit2'
-			. ', ij.research_group AS research_group'
-			. ', ij.research_group2 AS research_group2'
+            . ', un1.description AS unit1_description'
+            . ', un2.description AS unit2_description'
+            . ', rg1.description AS research_group1_description'
+            . ', rg2.description AS research_group2_description'
 			. ', ij.irb_job_positions AS irb_job_positions'
 			. ' FROM alumni_irb_jobs AS ij'
+			. ' LEFT JOIN `unit` AS un1 ON ij.unit = un1.unitcode'
+			. ' LEFT JOIN `unit` AS un2 ON ij.unit_2 = un2.unitcode'
+			. ' LEFT JOIN `research_group` AS rg1 ON ij.research_group = rg1.research_groupcode'
+			. ' LEFT JOIN `research_group` AS rg2 ON ij.research_group_2 = rg2.research_groupcode'
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY ij.start_date'
 			;
@@ -504,9 +508,5 @@ class alumniapi
 		}
 		return $list;
 	}
-	
-
-	
-
 
 }
