@@ -153,5 +153,6 @@ switch($_POST["action"])
 }
 
 // echo the JSON message
+//var_dump($message);
 echo json_encode($message);
 ?>

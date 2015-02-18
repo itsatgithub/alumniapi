@@ -141,7 +141,7 @@ $(document).ready(function(e) {
 </form>
 
 <h2>Test get_titles</h2>
-<form name="form" method="post">
+<form name="form" method="post" action="index.php">
 	<input type="hidden" name="action" value="get_titles">
 	<table>
 	<tr>
