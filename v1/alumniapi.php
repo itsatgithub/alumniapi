@@ -103,7 +103,7 @@ class alumniapi
             . ', rg1.description AS research_group1_description'
             . ', rg2.description AS research_group2_description'
 			. ', po.description AS irb_job_position'
-			. ' FROM alumni_irb_jobs AS ij'
+			. ' FROM alumni_directory_data AS ij'
 			. ' LEFT JOIN `unit` AS un1 ON ij.unit = un1.unitcode'
 			. ' LEFT JOIN `unit` AS un2 ON ij.unit_2 = un2.unitcode'
 			. ' LEFT JOIN `research_group` AS rg1 ON ij.research_group = rg1.research_groupcode'
