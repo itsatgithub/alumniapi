@@ -27,7 +27,7 @@ $api = new alumniapi();
 $message = array();
 
 // unserialize
-$_POST = unserialize($_POST["data"]);
+//$_POST = unserialize($_POST["data"]);
 
 switch($_POST["action"])
 {
@@ -67,7 +67,7 @@ switch($_POST["action"])
 	case 'get':
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
-		if ($data = $api->get($params)) {
+		if (is_array($data = $api->get($params))) {
 			$message["code"] = "0";
 			$message["data"] = $data;
 		} else {

@@ -62,7 +62,9 @@ class alumniapi
 		. ', pe.researcherid AS researcherid'
 		. ', pe.pubmedid AS pubmedid'	
 		. ' FROM alumni_personal AS pe'
-		. ' WHERE pe.verified = 1 AND pe.show_data = 1'
+		. ' WHERE pe.verified = 1'
+		. ' AND pe.show_data = 1'
+		. ' AND pe.deleted = \'\''
 		. ($params['alumni_personalcode'] == ''? '' : ' AND pe.alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\'')
 		. ' ORDER BY pe.alumni_personalcode'
 		;			
@@ -86,6 +88,7 @@ class alumniapi
 			. ', ej.telephone AS telephone'
 			. ' FROM alumni_external_jobs AS ej'
 			. ' WHERE ej.personal = \'' . $row['alumni_personalcode'] . '\''
+			. ' AND ej.deleted = \'\''
 			. ' ORDER BY ej.start_date'
 			;
 			$result2 = $this->db->query($query2);
@@ -110,6 +113,7 @@ class alumniapi
 			. ' LEFT JOIN `research_group` AS rg2 ON ij.research_group_2 = rg2.research_groupcode'
             . ' LEFT JOIN `alumni_irb_job_positions` AS po ON po.alumni_irb_job_positionscode = ij.irb_job_positions'
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
+			. ' AND ij.deleted = \'\''
 			. ' ORDER BY ij.start_date'
 			;
 			$result3 = $this->db->query($query3);
