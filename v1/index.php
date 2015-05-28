@@ -26,8 +26,10 @@ $api = new alumniapi();
 // return message
 $message = array();
 
-// unserialize
-//$_POST = unserialize($_POST["data"]);
+// unserialize. The following line:
+// - uncomment for operation
+// - comment for development
+$_POST = unserialize($_POST["data"]);
 
 switch($_POST["action"])
 {
@@ -35,9 +37,9 @@ switch($_POST["action"])
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
 		$params['titles'] = isset($_POST["titles"]) ? $_POST["titles"] : '';
-		$params['firstname'] = isset($_POST["firstname"]) ? $_POST["firstname"] : '';
-		$params['surname'] = isset($_POST["surname"]) ? $_POST["surname"] : '';
-		$params['irb_surname'] = isset($_POST["irb_surname"]) ? $_POST["irb_surname"] : '';
+		$params['firstname'] = isset($_POST["firstname"]) ? utf8_encode($_POST["firstname"]) : '';
+		$params['surname'] = isset($_POST["surname"]) ? utf8_encode($_POST["surname"]) : '';
+		$params['irb_surname'] = isset($_POST["irb_surname"]) ? utf8_encode($_POST["irb_surname"]) : '';
 		$params['gender'] = isset($_POST["gender"]) ? $_POST["gender"] : '';
 		$params['nationality'] = isset($_POST["nationality"]) ? $_POST["nationality"] : '';
 		$params['nationality_2'] = isset($_POST["nationality_2"]) ? $_POST["nationality_2"] : '';
@@ -48,8 +50,8 @@ switch($_POST["action"])
 		$params['linkedin'] = isset($_POST["linkedin"]) ? $_POST["linkedin"] : '';
 		$params['twitter'] = isset($_POST["twitter"]) ? $_POST["twitter"] : '';
 		$params['keywords'] = isset($_POST["keywords"]) ? $_POST["keywords"] : '';
-		$params['biography'] = isset($_POST["biography"]) ? $_POST["biography"] : '';
-		$params['awards'] = isset($_POST["awards"]) ? $_POST["awards"] : '';
+		$params['biography'] = isset($_POST["biography"]) ? utf8_encode($_POST["biography"]) : '';
+		$params['awards'] = isset($_POST["awards"]) ? utf8_encode($_POST["awards"]) : '';
 		$params['ORCIDID'] = isset($_POST["ORCIDID"]) ? $_POST["ORCIDID"] : '';
 		$params['researcherid'] = isset($_POST["researcherid"]) ? $_POST["researcherid"] : '';
 		$params['pubmedid'] = isset($_POST["pubmedid"]) ? $_POST["pubmedid"] : '';
@@ -152,7 +154,8 @@ switch($_POST["action"])
 		break;
 }
 
-// echo the JSON message
 //var_dump($message);
+// echo the JSON message
+header('Content-type: application/json');
 echo json_encode($message);
 ?>

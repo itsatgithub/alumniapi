@@ -140,7 +140,8 @@ class alumniapi
 		}
 		
 		// all ok
-		return $list;		
+		return $list;
+		
 	}
 
 	/**
