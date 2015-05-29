@@ -155,7 +155,5 @@ switch($_POST["action"])
 }
 
 //var_dump($message);
-//the JSON message
-header('Content-type: application/json; charset=utf-8');
-echo json_encode($message);
+echo serialize($message);
 ?>

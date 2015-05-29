@@ -72,9 +72,6 @@ class alumniapi
 		$result = $this->db->query($query);
 		while ($row = $result->fetch_assoc())
 		{	 
-			// 2015-05-29 convert
-			$row = array_map('utf8_encode', $row);
-			
 			// get all the external jobs
 			$array_aux = array();
 			$query2 = 'SELECT ej.current AS current'
