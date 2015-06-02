@@ -70,10 +70,10 @@ class alumniapi
 		;			
 		$list = array();
 		$result = $this->db->query($query);
-		while ($roww = $result->fetch_assoc())
+		while ($row = $result->fetch_assoc())
 		{	 
 			// 2015-05-29 convert
-			$row = array_map('utf8_encode', $roww);
+			//$row = array_map('utf8_encode', $roww);
 			//$row['surname'] = utf8_encode("Camión");
 			
 			// get all the external jobs
