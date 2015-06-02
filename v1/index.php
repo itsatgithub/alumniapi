@@ -29,7 +29,7 @@ $message = array();
 // unserialize. The following line:
 // - uncomment for operation
 // - comment for development
-//$_POST = unserialize($_POST["data"]);
+$_POST = unserialize($_POST["data"]);
 
 switch($_POST["action"])
 {
@@ -157,6 +157,7 @@ switch($_POST["action"])
 //var_dump($message);
 //the JSON message
 //header('Content-type: application/json; charset=utf-8');
-header('Content-type: text/plain; charset=utf-8');
-print_r(json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHED));
+//header('Content-type: text/plain; charset=utf-8');
+echo serialize($message);
+//print_r(json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHED));
 ?>
