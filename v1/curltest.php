@@ -16,7 +16,7 @@ curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
 curl_setopt($ch,CURLOPT_TIMEOUT, 20);
 
 $response = curl_exec($ch);
-var_dump(unserialize($response));
+//var_dump(unserialize($response));
 
 $res = json_decode($response);
 var_dump($res);

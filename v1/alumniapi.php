@@ -39,7 +39,7 @@ class alumniapi
 	 * @return list of data
 	 */
 	function get($params)
-	{
+	{		
 		// get all codes in database
 		$query = 'SELECT pe.alumni_personalcode AS alumni_personalcode'
 		. ', pe.titles AS titles'
@@ -70,10 +70,11 @@ class alumniapi
 		;			
 		$list = array();
 		$result = $this->db->query($query);
-		while ($row = $result->fetch_assoc())
+		while ($roww = $result->fetch_assoc())
 		{	 
 			// 2015-05-29 convert
-			$row = array_map('utf8_encode', $row);
+			$row = array_map('utf8_encode', $roww);
+			//$row['surname'] = utf8_encode("Camión");
 			
 			// get all the external jobs
 			$array_aux = array();
