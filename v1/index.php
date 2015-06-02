@@ -150,7 +150,7 @@ switch($_POST["action"])
 	
 	default:
 		$message["code"] = "1";
-		$message["message"] = "Unknown method " . serialize($_POST["data"]);
+		$message["message"] = "Unknown method " . $_POST["action"];
 		break;
 }
 
