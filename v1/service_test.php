@@ -4,27 +4,6 @@
 </head>
 <body>
 
-<script type="text/javascript">
-$(document).ready(function(e) {
-	$("#form").submit(function() {
-		var datastring = $("#form").serialize();
-		$.ajax({
-			type: "POST",
-			url: "index.php",
-			data: datastring,
-			dataType: "json",
-			success: function(data) {
-				//var obj = jQuery.parseJSON(data); if the dataType is not specified as json uncomment this
-				// do what ever you want with the server response
-				},
-			error: function(){
-				alert('error handing here');
-				}
-		});
-	})
-});
-</script>
-
 <h2>Test GET web service</h2>
 <form name="form" method="post" action="index.php">
 	<input type="hidden" name="action" value="get">
