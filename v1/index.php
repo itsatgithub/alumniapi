@@ -29,7 +29,7 @@ $message = array();
 // unserialize. The following line:
 // - uncomment for operation
 // - comment for development
-//$_POST = unserialize($_POST["data"]);
+$_POST = unserialize($_POST["data"]);
 
 switch($_POST["action"])
 {
