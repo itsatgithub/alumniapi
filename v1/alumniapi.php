@@ -73,8 +73,7 @@ class alumniapi
 		while ($row = $result->fetch_assoc())
 		{	 
 			// 2015-05-29 convert
-			//$row = array_map('utf8_encode', $roww);
-			$row['surname'] = htmlentities("Camión");
+			$row = array_map('utf8_encode', $row);
 			
 			// get all the external jobs
 			$array_aux = array();
