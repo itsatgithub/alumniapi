@@ -74,7 +74,7 @@ class alumniapi
 		{	 
 			// 2015-05-29 convert
 			//$row = array_map('utf8_encode', $roww);
-			//$row['surname'] = utf8_encode("Camión");
+			$row['surname'] = htmlentities("Camión");
 			
 			// get all the external jobs
 			$array_aux = array();

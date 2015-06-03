@@ -6,8 +6,8 @@ $fields = array('action'=>'get');
 
 $postArgs = array('data' => serialize($fields));
 
-$url = "http://alumniapitest.irbbarcelona.pcb.ub.es/v1/index.php";
-//$url = "http://localhost/alumniapi/v1/index.php";
+//$url = "http://alumniapitest.irbbarcelona.pcb.ub.es/v1/index.php";
+$url = "http://localhost/alumniapi/v1/index.php";
 curl_setopt($ch,CURLOPT_URL,$url);
 curl_setopt($ch,CURLOPT_POST, 1);
 curl_setopt($ch,CURLOPT_POSTFIELDS, $postArgs);
@@ -16,10 +16,10 @@ curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
 curl_setopt($ch,CURLOPT_TIMEOUT, 20);
 
 $response = curl_exec($ch);
-var_dump(unserialize($response));
+//var_dump(unserialize($response));
 
-//$res = json_decode($response);
-//var_dump($res);
+$res = json_decode($response);
+var_dump($res);
 //break;
 
 
