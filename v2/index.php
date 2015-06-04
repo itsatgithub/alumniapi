@@ -29,7 +29,22 @@ $message = array();
 // unserialize. The following line:
 // - uncomment for operation
 // - comment for development
-$_POST = unserialize($_POST["data"]);
+//$_POST = unserialize($_POST["data"]);
+
+
+/**
+ * Encode array on JSON format
+ */
+function json_encode_noescape_slashes_unicode ($arr) {
+	array_walk_recursive($arr, function (&$item, $key) {
+		if (is_string($item)) {
+			$item = mb_encode_numericentity($item, array(0x80, 0xffff, 0, 0xffff), 'UTF-8');
+		}
+	});
+	$str = mb_decode_numericentity(json_encode($arr), array(0x80, 0xffff, 0, 0xffff), 'UTF-8');
+	$str = str_replace('\/','/', $str);
+	return $str;
+}
 
 switch($_POST["action"])
 {
@@ -154,12 +169,11 @@ switch($_POST["action"])
 		break;
 }
 
-//var_dump($message);
 //the JSON message
 header('Content-type: application/json; charset=utf-8');
-//header('Content-type: text/plain; charset=utf-8');
-//echo serialize($message);
-//echo json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHED);
-echo json_encode($message);
+//print_r($message);
+echo json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHED);
+//echo json_encode($message);
+//echo json_encode_noescape_slashes_unicode($message);
 
 ?>
