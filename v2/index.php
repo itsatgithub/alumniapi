@@ -23,13 +23,8 @@ require_once 'alumniapi.php';
 // Creates a new instance of the irbpeople_api class
 $api = new alumniapi();
 
-// return message
+// message to return
 $message = array();
-
-// unserialize. The following line:
-// - uncomment for operation
-// - comment for development
-//$_POST = unserialize($_POST["data"]);
 
 switch($_POST["action"])
 {
