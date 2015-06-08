@@ -276,7 +276,7 @@ class alumniapi
 				. ' VALUES ('
 				. '\'' . $alumni_external_jobscode .'\''
 				. ', \'' . $this->db->real_escape_string($params['alumni_personalcode']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['star_date']) .'\''
+				. ', \'' . $this->db->real_escape_string($external_job['start_date']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['end_date']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['external_job_positions']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['comments']) .'\''
@@ -290,6 +290,7 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
 				. ' )'
 				;			
+				//echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}
@@ -419,6 +420,10 @@ class alumniapi
 				$list[] = $row;
 			}
 		}
+		
+		// 2015-06-08 convert
+		$list = array_map('utf8_encode', $list);
+		
 		return $list;
 	}
 

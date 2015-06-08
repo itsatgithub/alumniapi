@@ -148,6 +148,10 @@ switch($_POST["action"])
 		$message["message"] = "Unknown method " . $_POST["action"];
 		break;
 }
+echo "inicio-->";
+print_r($message);
+echo "<--fin";
+break;
 
 //the JSON message
 header('Content-type: application/json; charset=utf-8');
