@@ -14,3 +14,8 @@ The software is under version control on https://github.com/rbartolomeirb/alumni
 
 How to use it?
 Execute on a browser service_test.php
+
+How to reinstall from Git?
+$ git reset --hard HEAD
+$ git clean -f -d
+$ git pull

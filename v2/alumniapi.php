@@ -475,7 +475,32 @@ class alumniapi
 	}
 
 	
+	
+	/**
+	 * Get the list of external jobs sectors on JSON format
+	 *
+	 * @param none
+	 * @return list of data
+	 */
+	function get_external_jobs_sectors()
+	{
+		$query = 'SELECT js.alumni_external_job_sectorscode AS alumni_external_job_sectorscode'
+		.', js.description AS description'
+		. ' FROM alumni_external_job_sectors AS js'
+		. ' WHERE js.deleted = \'\''
+		. ' ORDER BY js.order_number'
+		;
+		$list = array();
+		if ($result = $this->db->query($query)) {
+			while ($row = $result->fetch_assoc()) {
+				$list[] = $row;
+			}
+		}
+		return $list;
+	}
 
+	
+	
 	/**
 	 * Get the list of jobs position types on JSON format
 	 *
