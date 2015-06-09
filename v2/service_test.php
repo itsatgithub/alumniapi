@@ -125,7 +125,7 @@
 	</tr>
 	<tr>
 		<td align="right">External job. Country</td>
-		<td><input name="external_jobs[0][country]" type="text" size="50" maxlength="50" value="ESP"></td>
+		<td><input name="external_jobs[0][country]" type="text" size="50" maxlength="50" value="ES"></td>
 		</tr>	
 	<tr>
 	<tr>
@@ -148,7 +148,7 @@
 	</tr>
 	<tr>
 		<td align="right">External job. Country</td>
-		<td><input name="external_jobs[1][country]" type="text" size="50" maxlength="50" value="ESP"></td>
+		<td><input name="external_jobs[1][country]" type="text" size="50" maxlength="50" value="ES"></td>
 		</tr>	
 	<tr>
 	<tr>
