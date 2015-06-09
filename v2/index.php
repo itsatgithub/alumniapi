@@ -79,10 +79,11 @@ switch($_POST["action"])
 		{
 			foreach ($params['external_jobs'] as $external_job)
 			{
-				if (empty($external_job['country']) {
+				if (empty($external_job['country'])
+				{
 					$message["code"] = "1";
-					$message["message"] = "The country in external jobs is not set";
-					return 2;
+					$message["message"] = "The Country code in External Jobs is not set";
+					break 2;
 				}				
 			}				
 		}

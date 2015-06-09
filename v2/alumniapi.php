@@ -291,7 +291,8 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
 				. ', \'\''
 				. ' )'
-				;			
+				;		
+				echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}

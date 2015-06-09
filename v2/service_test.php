@@ -124,6 +124,11 @@
 		<td>eg. 1970-04-10 00:00:00</td>
 	</tr>
 	<tr>
+		<td align="right">External job. Country</td>
+		<td><input name="external_jobs[0][country]" type="text" size="50" maxlength="50" value="ESP"></td>
+		</tr>	
+	<tr>
+	<tr>
 		<td align="right">External job. Job positions</td>
 		<td><input name="external_jobs[0][external_job_positions]" type="text" size="50" maxlength="50" value="0000000000001"></td>
 		</tr>	
@@ -141,6 +146,11 @@
 		<td><input name="external_jobs[1][end_date]" type="text" size="50" maxlength="50" value="2015-02-02"></td>
 		<td>eg. 1970-04-10 00:00:00</td>
 	</tr>
+	<tr>
+		<td align="right">External job. Country</td>
+		<td><input name="external_jobs[1][country]" type="text" size="50" maxlength="50" value="ESP"></td>
+		</tr>	
+	<tr>
 	<tr>
 		<td align="right">External job. Job positions</td>
 		<td><input name="external_jobs[1][external_job_positions]" type="text" size="50" maxlength="50" value="0000000000002"></td>
