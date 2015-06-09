@@ -292,7 +292,6 @@ class alumniapi
 				. ', \'\''
 				. ' )'
 				;		
-				echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}
