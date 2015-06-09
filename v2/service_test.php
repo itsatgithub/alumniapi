@@ -30,7 +30,7 @@
 	</tr>
 	<tr>
 		<td align="right">titles</td>
-		<td><input name="titles" type="text" size="50" maxlength="50"></td>
+		<td><input name="titles" type="text" size="50" maxlength="50" value="0000000000002"></td>
 		<td>eg. 0000000000002</td>
 		</tr>
 	<tr>
@@ -47,12 +47,12 @@
 	</tr>
 	<tr>
 		<td align="right">gender</td>
-		<td><input name="gender" type="text" size="50" maxlength="50"></td>
+		<td><input name="gender" type="text" size="50" maxlength="50" value="00001"></td>
 		<td>eg. 00001</td>
 		</tr>
 	<tr>
 		<td align="right">nationality</td>
-		<td><input name="nationality" type="text" size="50" maxlength="50"></td>
+		<td><input name="nationality" type="text" size="50" maxlength="50" value="ESP"></td>
 		<td>eg. ESP</td>
 		</tr>
 	<tr>

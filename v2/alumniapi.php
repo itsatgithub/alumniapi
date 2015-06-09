@@ -522,4 +522,95 @@ class alumniapi
 		return $list;
 	}
 	
+	/**
+	 * Validate title
+	 * 
+	 * @param var Value to be verified
+	 * @return true, false
+	 */
+	function valid_title($var)
+	{
+		$query = 'SELECT alumni_titlescode AS value'
+		. ' FROM alumni_titles'
+		. ' WHERE deleted = \'\''
+		;
+		$result = $this->db->query($query);
+		while ($row = $result->fetch_assoc())
+		{
+			if ($row['value'] == $var)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Validate gender
+	 * 
+	 * @param var Value to be verified
+	 * @return true, false
+	 */
+	function valid_gender($var)
+	{
+		$query = 'SELECT gendercode AS value'
+		. ' FROM gender'
+		. ' WHERE deleted = \'\''
+		;
+		$result = $this->db->query($query);
+		while ($row = $result->fetch_assoc())
+		{
+			if ($row['value'] == $var)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Validate nationality
+	 * 
+	 * @param var Value to be verified
+	 * @return true, false
+	 */
+	function valid_nationality($var)
+	{
+		$query = 'SELECT nationalitycode AS value'
+		. ' FROM nationality'
+		. ' WHERE deleted = \'\''
+		;
+		$result = $this->db->query($query);
+		while ($row = $result->fetch_assoc())
+		{
+			if ($row['value'] == $var)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Validate country
+	 * 
+	 * @param var Value to be verified
+	 * @return true, false
+	 */
+	function valid_country($var)
+	{
+		$query = 'SELECT countrycode AS value'
+		. ' FROM country'
+		. ' WHERE deleted = \'\''
+		;
+		$result = $this->db->query($query);
+		while ($row = $result->fetch_assoc())
+		{
+			if ($row['value'] == $var)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

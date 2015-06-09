@@ -32,30 +32,30 @@ switch($_POST["action"])
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
 		// mandatory. If not set, it breaks IRBpeople
-		if (!empty($_POST["titles"])) {
+		if (!empty($_POST["titles"]) && $api->valid_title($_POST["titles"])) {
 			$params['titles'] = $_POST["titles"];
 		} else {
 			$message["code"] = "1";
-			$message["message"] = "The title value is not set";
+			$message["message"] = "The title value is not set or is not valid";
 			break;
 		}
 		$params['firstname'] = isset($_POST["firstname"]) ? $_POST["firstname"] : '';
 		$params['surname'] = isset($_POST["surname"]) ? $_POST["surname"] : '';
 		$params['irb_surname'] = isset($_POST["irb_surname"]) ? $_POST["irb_surname"] : '';
 		// mandatory. If not set, it breaks IRBpeople
-		if (!empty($_POST["gender"])) {
+		if (!empty($_POST["gender"]) && $api->valid_gender($_POST["gender"])) {
 			$params['gender'] = $_POST["gender"];
 		} else {
 			$message["code"] = "1";
-			$message["message"] = "The gender value is not set";
+			$message["message"] = "The gender value is not set or is not valid";
 			break;
 		}
 		// mandatory. If not set, it breaks IRBpeople
-		if (!empty($_POST["nationality"])) {
+		if (!empty($_POST["nationality"]) && $api->valid_nationality($_POST["nationality"])) {
 			$params['nationality'] = $_POST["nationality"];
 		} else {
 			$message["code"] = "1";
-			$message["message"] = "The nationality value is not set";
+			$message["message"] = "The nationality value is not set or is not valid";
 			break;
 		}
 		$params['nationality_2'] = isset($_POST["nationality_2"]) ? $_POST["nationality_2"] : '';
@@ -79,10 +79,10 @@ switch($_POST["action"])
 		{
 			foreach ($params['external_jobs'] as $external_job)
 			{
-				if (empty($external_job['country']))
+				if (empty($external_job['country']) || !$api->valid_country($external_job['country']))
 				{
 					$message["code"] = "1";
-					$message["message"] = "The Country code in External Jobs is not set";
+					$message["message"] = "The Country code in External Jobs is not set or is not valid";
 					break 2;
 				}				
 			}				
