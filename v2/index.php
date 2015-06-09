@@ -31,8 +31,8 @@ switch($_POST["action"])
 	case 'save':
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
-		// mandatory
-		if (isset($_POST["titles"])) {
+		// mandatory. If not set, it breaks IRBpeople
+		if (!empty($_POST["titles"])) {
 			$params['titles'] = $_POST["titles"];
 		} else {
 			$message["code"] = "1";
@@ -42,24 +42,22 @@ switch($_POST["action"])
 		$params['firstname'] = isset($_POST["firstname"]) ? $_POST["firstname"] : '';
 		$params['surname'] = isset($_POST["surname"]) ? $_POST["surname"] : '';
 		$params['irb_surname'] = isset($_POST["irb_surname"]) ? $_POST["irb_surname"] : '';
-		// mandatory
-		if (isset($_POST["gender"])) {
+		// mandatory. If not set, it breaks IRBpeople
+		if (!empty($_POST["gender"])) {
 			$params['gender'] = $_POST["gender"];
 		} else {
 			$message["code"] = "1";
 			$message["message"] = "The gender value is not set";
 			break;
 		}
-		// mandatory
+		// mandatory. If not set, it breaks IRBpeople
 		if (!empty($_POST["nationality"])) {
 			$params['nationality'] = $_POST["nationality"];
 		} else {
-			echo "hola1";
 			$message["code"] = "1";
 			$message["message"] = "The nationality value is not set";
 			break;
 		}
-		echo "hola2";
 		$params['nationality_2'] = isset($_POST["nationality_2"]) ? $_POST["nationality_2"] : '';
 		$params['birth'] = isset($_POST["birth"]) ? $_POST["birth"] : '';
 		$params['email'] = isset($_POST["email"]) ? $_POST["email"] : '';
@@ -75,7 +73,6 @@ switch($_POST["action"])
 		$params['pubmedid'] = isset($_POST["pubmedid"]) ? $_POST["pubmedid"] : '';
 		$params['show_data'] = isset($_POST["show_data"]) ? $_POST["show_data"] : '';
 		$params['external_jobs'] = isset($_POST["external_jobs"]) ? $_POST["external_jobs"] : '';
-
 		if ($api->save($params)) {
 			$message["code"] = "0";
 		} else {

@@ -240,7 +240,7 @@ class alumniapi
 		}
 		
 		// save external jobs data
-		if (isset($params['external_jobs']))
+		if (!empty($params['external_jobs']))
 		{
 			// remove old records before inserting new ones
 			$query = 'DELETE FROM alumni_external_jobs'
@@ -290,7 +290,7 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
 				. ' )'
 				;			
-				//echo $query;
+				echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}
@@ -298,7 +298,7 @@ class alumniapi
 		}
 		
 		// save communications data
-		if (isset($params['communications']))
+		if (!empty($params['communications']))
 		{
 			// remove old records before inserting new ones
 			$query = 'DELETE FROM alumni_personal_communications'
@@ -473,8 +473,6 @@ class alumniapi
 		}
 		return $list;
 	}
-
-	
 	
 	/**
 	 * Get the list of external jobs sectors on JSON format
@@ -499,8 +497,6 @@ class alumniapi
 		return $list;
 	}
 
-	
-	
 	/**
 	 * Get the list of jobs position types on JSON format
 	 *
@@ -525,6 +521,4 @@ class alumniapi
 		return $list;
 	}
 	
-	
-
 }
