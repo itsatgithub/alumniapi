@@ -48,6 +48,8 @@ $fields = Array
 //print_r($fields);
 //break;
 
+$ch = curl_init();
+
 $url = "http://alumniapitest.irbbarcelona.pcb.ub.es/v2/index.php";
 curl_setopt($ch,CURLOPT_URL,$url);
 curl_setopt($ch,CURLOPT_POST, 1);  
@@ -55,9 +57,8 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
 //curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
-echo $response;
+//echo $response;
 
-$res = json_decode($response);
-echo $res;
+json_decode($response);
 
 ?>
