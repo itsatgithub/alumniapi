@@ -51,7 +51,7 @@ switch($_POST["action"])
 			break;
 		}
 		// mandatory
-		if (isset($_POST["nationality"])) {
+		if (!empty($_POST["nationality"])) {
 			$params['nationality'] = $_POST["nationality"];
 		} else {
 			echo "hola1";
