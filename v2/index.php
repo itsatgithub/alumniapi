@@ -54,10 +54,12 @@ switch($_POST["action"])
 		if (isset($_POST["nationality"])) {
 			$params['nationality'] = $_POST["nationality"];
 		} else {
+			echo "hola1";
 			$message["code"] = "1";
 			$message["message"] = "The nationality value is not set";
 			break;
 		}
+		echo "hola2";
 		$params['nationality_2'] = isset($_POST["nationality_2"]) ? $_POST["nationality_2"] : '';
 		$params['birth'] = isset($_POST["birth"]) ? $_POST["birth"] : '';
 		$params['email'] = isset($_POST["email"]) ? $_POST["email"] : '';
