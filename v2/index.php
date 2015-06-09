@@ -31,12 +31,33 @@ switch($_POST["action"])
 	case 'save':
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
-		$params['titles'] = isset($_POST["titles"]) ? $_POST["titles"] : '';
+		// mandatory
+		if (isset($_POST["titles"])) {
+			$params['titles'] = $_POST["titles"];
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "The title value is not set";
+			break;
+		}
 		$params['firstname'] = isset($_POST["firstname"]) ? $_POST["firstname"] : '';
 		$params['surname'] = isset($_POST["surname"]) ? $_POST["surname"] : '';
 		$params['irb_surname'] = isset($_POST["irb_surname"]) ? $_POST["irb_surname"] : '';
-		$params['gender'] = isset($_POST["gender"]) ? $_POST["gender"] : '';
-		$params['nationality'] = isset($_POST["nationality"]) ? $_POST["nationality"] : '';
+		// mandatory
+		if (isset($_POST["gender"])) {
+			$params['gender'] = $_POST["gender"];
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "The gender value is not set";
+			break;
+		}
+		// mandatory
+		if (isset($_POST["nationality"])) {
+			$params['nationality'] = $_POST["nationality"];
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "The nationality value is not set";
+			break;
+		}
 		$params['nationality_2'] = isset($_POST["nationality_2"]) ? $_POST["nationality_2"] : '';
 		$params['birth'] = isset($_POST["birth"]) ? $_POST["birth"] : '';
 		$params['email'] = isset($_POST["email"]) ? $_POST["email"] : '';
