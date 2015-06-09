@@ -288,10 +288,11 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['city']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['country']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['telephone']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
+				. ', b\'' . $this->db->real_escape_string($external_job['current']) .'\''
 				. ', \'\''
 				. ' )'
 				;		
+				echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}

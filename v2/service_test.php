@@ -131,36 +131,32 @@
 	<tr>
 		<td align="right">External job. Job positions</td>
 		<td><input name="external_jobs[0][external_job_positions]" type="text" size="50" maxlength="50" value="0000000000001"></td>
-		</tr>	
+	</tr>	
 	<tr>
 		<td align="right">External job. Job sectors</td>
 		<td><input name="external_jobs[0][external_job_sectors]" type="text" size="50" maxlength="50" value="0000000000001"></td>
-		</tr>	
+	</tr>	
 	<tr>
-		<td align="right">External job. Start date</td>
-		<td><input name="external_jobs[1][start_date]" type="text" size="50" maxlength="50" value="2015-02-01"></td>
-		<td>eg. 1970-04-10 00:00:00</td>
-	</tr>
+		<td align="right">External job. Comments</td>
+		<td><input name="external_jobs[0][comments]" type="text" size="50" maxlength="50" value="com"></td>
+	</tr>	
 	<tr>
-		<td align="right">External job. End date</td>
-		<td><input name="external_jobs[1][end_date]" type="text" size="50" maxlength="50" value="2015-02-02"></td>
-		<td>eg. 1970-04-10 00:00:00</td>
-	</tr>
+		<td align="right">External job. Institution</td>
+		<td><input name="external_jobs[0][institution]" type="text" size="50" maxlength="50" value="ins"></td>
+	</tr>	
 	<tr>
-		<td align="right">External job. Country</td>
-		<td><input name="external_jobs[1][country]" type="text" size="50" maxlength="50" value="ES"></td>
-		</tr>	
+		<td align="right">External job. Address</td>
+		<td><input name="external_jobs[0][address]" type="text" size="50" maxlength="50" value="09709709"></td>
+	</tr>	
 	<tr>
+		<td align="right">External job. Postcode</td>
+		<td><input name="external_jobs[0][postcode]" type="text" size="50" maxlength="50" value="9860876087"></td>
+	</tr>	
 	<tr>
-		<td align="right">External job. Job positions</td>
-		<td><input name="external_jobs[1][external_job_positions]" type="text" size="50" maxlength="50" value="0000000000002"></td>
-		</tr>	
-	<tr>
-		<td align="right">External job. Job sectors</td>
-		<td><input name="external_jobs[1][external_job_sectors]" type="text" size="50" maxlength="50" value="0000000000002"></td>
-		</tr>	
-	<tr>
-		<td colspan="3"><input type="submit" name="boton" value="Send"></td>
+		<td align="right">External job. Current</td>
+		<td><input name="external_jobs[0][current]" type="text" size="50" maxlength="50" value="1"></td>
+	</tr>	
+	<td colspan="3"><input type="submit" name="boton" value="Send"></td>
 	</tr>
 	</table>
 </form>
