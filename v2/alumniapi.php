@@ -254,7 +254,7 @@ class alumniapi
 			foreach ($params['external_jobs'] as $external_job)
 			{
 				// it is needed a unique code
-				$alumni_external_jobscode = uniqid('', TRUE);	
+				$alumni_external_jobscode = uniqid('', TRUE);
 				
 				// insert data from the form
 				$query = 'INSERT INTO alumni_external_jobs ('
@@ -272,6 +272,7 @@ class alumniapi
 				. ', country'
 				. ', telephone'
 				. ', current'			
+				. ', deleted'			
 				. ' )'
 				. ' VALUES ('
 				. '\'' . $alumni_external_jobscode .'\''
@@ -288,9 +289,9 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['country']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['telephone']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
+				. ', \'\''
 				. ' )'
 				;			
-				echo $query;
 				if (!$this->db->query($query)) {
 					return false;
 				}

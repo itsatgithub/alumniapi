@@ -73,6 +73,20 @@ switch($_POST["action"])
 		$params['pubmedid'] = isset($_POST["pubmedid"]) ? $_POST["pubmedid"] : '';
 		$params['show_data'] = isset($_POST["show_data"]) ? $_POST["show_data"] : '';
 		$params['external_jobs'] = isset($_POST["external_jobs"]) ? $_POST["external_jobs"] : '';
+		
+		// mandatory. If not set, it breaks IRBpeople
+		if (!empty($params['external_jobs']))
+		{
+			foreach ($params['external_jobs'] as $external_job)
+			{
+				if (empty($external_job['country']) {
+					$message["code"] = "1";
+					$message["message"] = "The country in external jobs is not set";
+					return 2;
+				}				
+			}				
+		}
+			
 		if ($api->save($params)) {
 			$message["code"] = "0";
 		} else {
