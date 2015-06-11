@@ -5,8 +5,8 @@ $fields = Array
     "action" => "save",
     "alumni_personalcode" => "",
     "titles" => "0000000000003",
-    "firstname" => "prueba3",
-    "surname" => "Magan",
+    "firstname" => "Test3",
+    "surname" => "Test1",
     "irb_surname" => "",
     "gender" => "00001",
     "nationality" => "AFG",
@@ -26,10 +26,10 @@ $fields = Array
     "show_data" => "1",
     "external_jobs" => Array
         (
-            0 => Array
+        		Array
                 (
-                    "start_date" => "2015-03-10",
-                    "end_date" => "2015-06-25",
+                    "start_date" => "2015-01-01",
+                    "end_date" => "2015-12-31",
                     "external_job_positions" => "0000000000005",
                     "comments" => "",
                     "external_job_sectors" => "0000000000003",
@@ -39,8 +39,22 @@ $fields = Array
                     "city" => "",
                     "country" => "AT",
                     "current" => "1"
-                )
-
+                ),
+        		Array
+        		(
+        				"start_date" => "2014-01-01",
+        				"end_date" => "2014-12-31",
+        				"external_job_positions" => "0000000000005",
+        				"comments" => "",
+        				"external_job_sectors" => "0000000000003",
+        				"institution" => "",
+        				"address" => "",
+        				"postcode" => "",
+        				"city" => "",
+        				"country" => "AT",
+        				"current" => "1"
+        		)
+        		
         )
 
 );
@@ -50,14 +64,19 @@ $fields = Array
 
 $ch = curl_init();
 
+$headers = array('Content-Type: application/x-www-form-urlencoded');
 $url = "http://alumniapitest.irbbarcelona.pcb.ub.es/v2/index.php";
-curl_setopt($ch,CURLOPT_URL,$url);
-curl_setopt($ch,CURLOPT_POST, 1);  
+//$url = "http://localhost/alumniapi/v2/index.php";
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
 //curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
-//echo $response;
+curl_close($ch);
 
 json_decode($response);
 

@@ -238,7 +238,8 @@ class alumniapi
 		if (!$this->db->query($query)) {
 			return false;
 		}
-		
+		print_r($params);
+		return false;
 		// save external jobs data
 		if (isset($params['external_jobs']))
 		{
@@ -289,7 +290,9 @@ class alumniapi
 				. ', \'' . $this->db->real_escape_string($external_job['telephone']) .'\''
 				. ', \'' . $this->db->real_escape_string($external_job['current']) .'\''
 				. ' )'
-				;			
+				;	
+				echo $query;
+				break;		
 				if (!$this->db->query($query)) {
 					return false;
 				}
