@@ -148,16 +148,16 @@ class alumniapi
 	}
 
 	/**
-	 * Save alumni data on the db
-	 * return: true or false
+	 * Save alumni personal data on the db
+	 * return: alumni code
 	 * 
 	 * @param user data
-	 * @return true, false
+	 * @return alumni_personalcode
 	 */
-	function save($params)
+	function save_personal($params)
 	{		
 		// save personal data
-		if ($params['alumni_personalcode'] == '') // insert or update?
+		if (empty($params['alumni_personalcode'])) // insert or update?
 		{	
 			// set the unique id for the user
 			$params['alumni_personalcode'] = uniqid('', TRUE);
@@ -235,101 +235,131 @@ class alumniapi
 			. 'alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\''
 			;
 		}	
-		if (!$this->db->query($query)) {
-			return false;
+		if ($this->db->query($query)) {
+			return $params['alumni_personalcode'];
 		}
-		
-		// save external jobs data
-		if (!empty($params['external_jobs']))
-		{
-			// remove old records before inserting new ones
-			$query = 'DELETE FROM alumni_external_jobs'
-			. ' WHERE personal = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\''
+		return false;
+	}
+	
+	
+	/**
+	 * Save external jobs data on the db
+	 * return: true or false
+	 *
+	 * @param external jobs data
+	 * @return true, false
+	 */
+	function save_external_jobs($params)
+	{
+		if (!empty($params['alumni_personalcode']))
+		{				
+			// it is needed a unique code
+			$alumni_external_jobscode = uniqid('', TRUE);
+	
+			// insert data from the form
+			$query = 'INSERT INTO alumni_external_jobs ('
+			. 'alumni_external_jobscode'
+			. ', personal'
+			. ', start_date'
+			. ', end_date'
+			. ', external_job_positions'
+			. ', comments'
+			. ', external_job_sectors'
+			. ', institution'
+			. ', address'
+			. ', postcode'
+			. ', city'
+			. ', country'
+			. ', telephone'
+			. ', current'
+			. ', deleted'
+			. ' )'
+			. ' VALUES ('
+			. '\'' . $alumni_external_jobscode .'\''
+			. ', \'' . $this->db->real_escape_string($params['alumni_personalcode']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['start_date']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['end_date']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['external_job_positions']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['comments']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['external_job_sectors']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['institution']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['address']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['postcode']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['city']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['country']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['telephone']) .'\''
+			. ', b\'' . $this->db->real_escape_string($params['current']) .'\''
+			. ', \'\''
+			. ' )'
 			;
-			if (!$this->db->query($query)) {
-				return false;
-			}
-			
-			// when the variable is empty this will not go through
-			foreach ($params['external_jobs'] as $external_job)
-			{
-				// it is needed a unique code
-				$alumni_external_jobscode = uniqid('', TRUE);
-				
-				// insert data from the form
-				$query = 'INSERT INTO alumni_external_jobs ('
-				. 'alumni_external_jobscode'
-				. ', personal'
-				. ', start_date'
-				. ', end_date'
-				. ', external_job_positions'
-				. ', comments'
-				. ', external_job_sectors'
-				. ', institution'
-				. ', address'
-				. ', postcode'
-				. ', city'
-				. ', country'
-				. ', telephone'
-				. ', current'			
-				. ', deleted'			
-				. ' )'
-				. ' VALUES ('
-				. '\'' . $alumni_external_jobscode .'\''
-				. ', \'' . $this->db->real_escape_string($params['alumni_personalcode']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['start_date']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['end_date']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['external_job_positions']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['comments']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['external_job_sectors']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['institution']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['address']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['postcode']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['city']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['country']) .'\''
-				. ', \'' . $this->db->real_escape_string($external_job['telephone']) .'\''
-				. ', b\'' . $this->db->real_escape_string($external_job['current']) .'\''
-				. ', \'\''
-				. ' )'
-				;		
-				if (!$this->db->query($query)) {
-					return false;
-				}
-			}
-		}
-		
-		// save communications data
-		if (!empty($params['communications']))
-		{
-			// remove old records before inserting new ones
-			$query = 'DELETE FROM alumni_personal_communications'
-			. ' WHERE alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\''
+			if ($this->db->query($query)) {
+				return true;
+			} 
+		} 		
+		return false;
+	}
+	
+	/**
+	 * Save communications data on the db
+	 * return: true or false
+	 *
+	 * @param communications data
+	 * @return true, false
+	 */
+	function save_communications($params)
+	{
+		if (!empty($params['alumni_personalcode']))
+		{				
+			$query = 'INSERT INTO alumni_personal_communications ('
+			. 'alumni_personalcode'
+			. ', alumni_communicationscode'
+			. ' )'
+			. ' VALUES ('
+			. '\'' . $this->db->real_escape_string($params['alumni_personalcode']) .'\''
+			. ', \'' . $this->db->real_escape_string($params['alumni_communicationscode']) .'\''
+			. ' )'
 			;
-			if (!$this->db->query($query)) {
-				return false;
+			if ($this->db->query($query)) {
+				return true;
 			}
-			
-			// when the variable is empty this will not go through
-			foreach ($params['communications'] as $communication)
-			{
-				// insert data from the form
-				$query = 'INSERT INTO alumni_personal_communications ('
-				. 'alumni_personalcode'
-				. ', alumni_communicationscode'
-				. ' )'
-				. ' VALUES ('
-				. '\'' . $this->db->real_escape_string($communication['alumni_personalcode']) .'\''
-				. ', \'' . $this->db->real_escape_string($communication['alumni_communicationscode']) .'\''
-				. ' )'
-				;			
-				if (!$this->db->query($query)) {
-					return false;
-				}
-			}
+		}	
+		return false;
+	}
+	
+	/**
+	 * Remove external jobs on the db for a alumni
+	 * return: true or false
+	 *
+	 * @param alumni_personalcode
+	 * @return true, false
+	 */
+	function remove_external_jobs($alumni_personalcode)
+	{
+		$query = 'DELETE FROM alumni_external_jobs'
+		. ' WHERE personal = \'' . $this->db->real_escape_string($alumni_personalcode) . '\''
+		;
+		if ($this->db->query($query)) {
+			return true;
 		}
-		
-		// all ok
-		return true;
+		return false;
+	}
+	
+	/**
+	 * Remove communications data on the db for a alumni
+	 * return: true or false
+	 *
+	 * @param alumni_personalcode
+	 * @return true, false
+	 */
+	function remove_communications($alumni_personalcode)
+	{
+		$query = 'DELETE FROM alumni_personal_communications'
+		. ' WHERE alumni_personalcode = \'' . $this->db->real_escape_string($alumni_personalcode) . '\''
+		;
+		if ($this->db->query($query)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**

@@ -19,9 +19,9 @@
 	</table>
 </form>
 	
-<h2>Test SAVE web service</h2>
+<h2>Test save_personal</h2>
 <form name="form" method="post" action="index.php">
-	<input type="hidden" name="action" value="save">
+	<input type="hidden" name="action" value="save_personal">
 <table>
 	<tr>
 		<td align="right">alumni_personalcode</td>
@@ -114,52 +114,121 @@
 		<td>eg. 1</td>
 	</tr>
 	<tr>
-		<td align="right">External job. Start date</td>
-		<td><input name="external_jobs[0][start_date]" type="text" size="50" maxlength="50" value="2015-01-01"></td>
-		<td>eg. 1970-04-10 00:00:00</td>
-	</tr>
-	<tr>
-		<td align="right">External job. End date</td>
-		<td><input name="external_jobs[0][end_date]" type="text" size="50" maxlength="50" value="2015-01-02"></td>
-		<td>eg. 1970-04-10 00:00:00</td>
-	</tr>
-	<tr>
-		<td align="right">External job. Country</td>
-		<td><input name="external_jobs[0][country]" type="text" size="50" maxlength="50" value="ES"></td>
-		</tr>	
-	<tr>
-	<tr>
-		<td align="right">External job. Job positions</td>
-		<td><input name="external_jobs[0][external_job_positions]" type="text" size="50" maxlength="50" value="0000000000001"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Job sectors</td>
-		<td><input name="external_jobs[0][external_job_sectors]" type="text" size="50" maxlength="50" value="0000000000001"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Comments</td>
-		<td><input name="external_jobs[0][comments]" type="text" size="50" maxlength="50" value="com"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Institution</td>
-		<td><input name="external_jobs[0][institution]" type="text" size="50" maxlength="50" value="ins"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Address</td>
-		<td><input name="external_jobs[0][address]" type="text" size="50" maxlength="50" value="09709709"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Postcode</td>
-		<td><input name="external_jobs[0][postcode]" type="text" size="50" maxlength="50" value="9860876087"></td>
-	</tr>	
-	<tr>
-		<td align="right">External job. Current</td>
-		<td><input name="external_jobs[0][current]" type="text" size="50" maxlength="50" value="1"></td>
-	</tr>	
 	<td colspan="3"><input type="submit" name="boton" value="Send"></td>
 	</tr>
 	</table>
 </form>
+
+<h2>Test save_external_jobs</h2>
+<form name="form" method="post" action="index.php">
+	<input type="hidden" name="action" value="save_external_jobs">
+	<table>
+	<tr>
+		<td align="right">alumni_personalcode</td>
+		<td><input name="alumni_personalcode" type="text" size="50" maxlength="50"></td>
+	</tr>
+	<tr>
+		<td align="right">Start date</td>
+		<td><input name="start_date" type="text" size="50" maxlength="50" value="2015-01-01"></td>
+		<td>eg. 1970-04-10 00:00:00</td>
+	</tr>
+	<tr>
+		<td align="right">End date</td>
+		<td><input name="end_date" type="text" size="50" maxlength="50" value="2015-01-02"></td>
+		<td>eg. 1970-04-10 00:00:00</td>
+	</tr>
+	<tr>
+		<td align="right">Job positions</td>
+		<td><input name="external_job_positions" type="text" size="50" maxlength="50" value="0000000000001"></td>
+	</tr>	
+	<tr>
+		<td align="right">Comments</td>
+		<td><input name="comments" type="text" size="50" maxlength="50" value="Los comments"></td>
+	</tr>	
+	<tr>
+		<td align="right">External job. Job sectors</td>
+		<td><input name="external_job_sectors" type="text" size="50" maxlength="50" value="0000000000001"></td>
+	</tr>	
+	<tr>
+		<td align="right">Institution</td>
+		<td><input name="institution" type="text" size="50" maxlength="50" value="IRB Barcelona"></td>
+	</tr>	
+	<tr>
+		<td align="right">Address</td>
+		<td><input name="address" type="text" size="50" maxlength="50" value="Joan Oms, 13"></td>
+	</tr>	
+	<tr>
+		<td align="right">Postcode</td>
+		<td><input name="postcode" type="text" size="50" maxlength="50" value="08360"></td>
+	</tr>	
+	<tr>
+		<td align="right">City</td>
+		<td><input name="city" type="text" size="50" maxlength="50" value="Barcelona"></td>
+	</tr>	
+	<tr>
+		<td align="right">Country</td>
+		<td><input name="country" type="text" size="50" maxlength="50" value="ES"></td>
+	</tr>	
+	<tr>
+		<td align="right">Telephone</td>
+		<td><input name="telephone" type="text" size="50" maxlength="50" value="937945555"></td>
+	</tr>	
+	<tr>
+		<td align="right">Current</td>
+		<td><input name="current" type="text" size="50" maxlength="50" value="1"></td>
+	</tr>	
+	<tr>
+		<td colspan="3"><input type="submit" name="boton" value="Send"></td>
+	</tr>
+	</table>
+</form>
+
+<h2>Test remove_external_jobs</h2>
+<form name="form" method="post" action="index.php">
+	<input type="hidden" name="action" value="remove_external_jobs">
+	<table>
+	<tr>
+		<td align="right">alumni_personalcode</td>
+		<td><input name="alumni_personalcode" type="text" size="50" maxlength="50"></td>
+	</tr>
+	<tr>
+		<td colspan="3"><input type="submit" name="boton" value="Send"></td>
+	</tr>
+	</table>
+</form>
+	
+<h2>Test save_communications</h2>
+<form name="form" method="post" action="index.php">
+	<input type="hidden" name="action" value="save_communications">
+	<table>
+	<tr>
+		<td align="right">alumni_personalcode</td>
+		<td><input name="alumni_personalcode" type="text" size="50" maxlength="50"></td>
+	</tr>
+	<tr>
+		<td align="right">alumni_communicationscode</td>
+		<td><input name="alumni_communicationscode" type="text" size="50" maxlength="50"></td>
+	</tr>
+	<tr>
+		<td colspan="3"><input type="submit" name="boton" value="Send"></td>
+	</tr>
+	</table>
+</form>
+
+<h2>Test remove_communications</h2>
+<form name="form" method="post" action="index.php">
+	<input type="hidden" name="action" value="remove_communications">
+	<table>
+	<tr>
+		<td align="right">alumni_personalcode</td>
+		<td><input name="alumni_personalcode" type="text" size="50" maxlength="50"></td>
+	</tr>
+	<tr>
+		<td colspan="3"><input type="submit" name="boton" value="Send"></td>
+	</tr>
+	</table>
+</form>
+
 
 <h2>Test get_titles</h2>
 <form name="form" method="post" action="index.php">

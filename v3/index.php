@@ -28,7 +28,7 @@ $message = array();
 
 switch($_POST["action"])
 {
-	case 'save':
+	case 'save_personal':
 		$params = array();
 		$params['alumni_personalcode'] = isset($_POST["alumni_personalcode"]) ? $_POST["alumni_personalcode"] : '';
 		// mandatory. If not set, it breaks IRBpeople
@@ -72,27 +72,110 @@ switch($_POST["action"])
 		$params['researcherid'] = isset($_POST["researcherid"]) ? $_POST["researcherid"] : '';
 		$params['pubmedid'] = isset($_POST["pubmedid"]) ? $_POST["pubmedid"] : '';
 		$params['show_data'] = isset($_POST["show_data"]) ? $_POST["show_data"] : '';
-		$params['external_jobs'] = isset($_POST["external_jobs"]) ? $_POST["external_jobs"] : '';
-		
-		// mandatory. If not set, it breaks IRBpeople
-		if (!empty($params['external_jobs']))
-		{
-			foreach ($params['external_jobs'] as $external_job)
-			{
-				if (empty($external_job['country']) || !$api->valid_country($external_job['country']))
-				{
-					$message["code"] = "1";
-					$message["message"] = "The Country code in External Jobs is not set or is not valid";
-					break 2;
-				}				
-			}				
-		}
+		$params['external_jobs'] = isset($_POST["external_jobs"]) ? $_POST["external_jobs"] : '';	
 			
-		if ($api->save($params)) {
+		if ($alumni_personalcode = $api->save_personal($params)) {
 			$message["code"] = "0";
+			$message["data"] = $alumni_personalcode;
 		} else {
 			$message["code"] = "1";
 			$message["message"] = "Error on save method";		
+		}
+		break;
+		
+	case 'save_external_jobs':
+		$params = array();
+		if (empty($_POST['alumni_personalcode']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The alumni personal code is not set";
+			break;
+		}
+		$params['alumni_personalcode'] = $_POST["alumni_personalcode"];
+		$params['start_date'] = isset($_POST["start_date"]) ? $_POST["start_date"] : '';
+		$params['end_date'] = isset($_POST["end_date"]) ? $_POST["end_date"] : '';
+		$params['external_job_positions'] = isset($_POST["external_job_positions"]) ? $_POST["external_job_positions"] : '';
+		$params['comments'] = isset($_POST["comments"]) ? $_POST["comments"] : '';		
+		$params['external_job_sectors'] = isset($_POST["external_job_sectors"]) ? $_POST["external_job_sectors"] : '';
+		$params['institution'] = isset($_POST["institution"]) ? $_POST["institution"] : '';
+		$params['address'] = isset($_POST["address"]) ? $_POST["address"] : '';
+		$params['postcode'] = isset($_POST["postcode"]) ? $_POST["postcode"] : '';
+		$params['city'] = isset($_POST["city"]) ? $_POST["city"] : '';
+		// validates data
+		if (empty($_POST['country']) || !$api->valid_country($_POST['country']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The Country code in External Jobs is not set or is not valid";
+			break;
+		}
+		$params['country'] = isset($_POST["country"]) ? $_POST["country"] : '';
+		$params['telephone'] = isset($_POST["telephone"]) ? $_POST["telephone"] : '';
+		$params['current'] = isset($_POST["current"]) ? $_POST["current"] : '';
+				
+		if ($api->save_external_jobs($params)) {
+			$message["code"] = "0";
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "Error on save method";
+		}
+		break;
+		
+	case 'save_communications':
+		$params = array();
+		if (empty($_POST['alumni_personalcode']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The alumni personal code is not set";
+			break;
+		}
+		if (empty($_POST['alumni_communicationscode']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The alumni communications code is not set";
+			break;
+		}
+		$params['alumni_personalcode'] = $_POST["alumni_personalcode"];
+		$params['alumni_communicationscode'] = $_POST["alumni_communicationscode"];
+
+		if ($api->save_communications($params)) {
+			$message["code"] = "0";
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "Error on save method";
+		}
+		break;
+				
+	case 'remove_external_jobs':
+		// validates data
+		if (empty($_POST['alumni_personalcode']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The alumni code is empty";
+			break;
+		}
+		
+		if ($api->remove_external_jobs($_POST['alumni_personalcode'])) {
+			$message["code"] = "0";
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "Error on remove method";
+		}		
+		break;
+		
+	case 'remove_communications':
+		// validates data
+		if (empty($_POST['alumni_personalcode']))
+		{
+			$message["code"] = "1";
+			$message["message"] = "The alumni code is empty";
+			break;
+		}
+		
+		if ($api->remove_communications($_POST['alumni_personalcode'])) {
+			$message["code"] = "0";
+		} else {
+			$message["code"] = "1";
+			$message["message"] = "Error on remove method";
 		}
 		break;
 		
