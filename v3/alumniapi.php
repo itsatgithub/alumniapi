@@ -451,10 +451,6 @@ class alumniapi
 				$list[] = $row;
 			}
 		}
-		
-		// 2015-06-08 convert
-		$list = array_map('utf8_encode', $list);
-		
 		return $list;
 	}
 
