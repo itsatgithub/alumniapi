@@ -155,7 +155,7 @@ class alumniapi
 	 * @return alumni_personalcode
 	 */
 	function save_personal($params)
-	{		
+	{				
 		// save personal data
 		if (empty($params['alumni_personalcode'])) // insert or update?
 		{	
@@ -170,7 +170,7 @@ class alumniapi
 			. ', irb_surname'
 			. ', gender'
 			. ', nationality'
-			. ($params['nationality_2'] == ''? '' : ', nationality_2')			
+			. ', nationality_2'			
 			. ', birth'
 			. ', email'
 			. ', url'
@@ -193,7 +193,7 @@ class alumniapi
 			. ', \'' . $this->db->real_escape_string($params['irb_surname']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['gender']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['nationality']) .'\''
-			. ($params['nationality_2'] == ''? '' : ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\'')			
+			. (empty($params['nationality_2'])? ', NULL' : ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\'')			
 			. ', \'' . $this->db->real_escape_string($params['birth']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['email']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['url']) .'\''
@@ -217,6 +217,7 @@ class alumniapi
 			. ', irb_surname = \'' . $this->db->real_escape_string($params['irb_surname']) .'\''
 			. ', gender = \'' . $this->db->real_escape_string($params['gender']) .'\''
 			. ', nationality = \'' . $this->db->real_escape_string($params['nationality']) .'\''
+			. ', nationality_2 = \'' . (empty($params['nationality_2'])? NULL : $this->db->real_escape_string($params['nationality_2']) . '\''
 			. ', nationality_2 = \'' . $this->db->real_escape_string($params['nationality_2']) .'\''
 			. ', birth = \'' . $this->db->real_escape_string($params['birth']) .'\''
 			. ', email = \'' . $this->db->real_escape_string($params['email']) .'\''

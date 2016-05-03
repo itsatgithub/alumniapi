@@ -67,13 +67,18 @@ class alumniapi
 		. ' AND pe.deleted = \'\''
 		. ($params['alumni_personalcode'] == ''? '' : ' AND pe.alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\'')
 		. ' ORDER BY pe.alumni_personalcode'
-		;	
+		;			
 		$list = array();
 		$result = $this->db->query($query);
+		
+		//echo $query;
+		//if ($result->num_rows == 0) then break;
+				
 		while ($row = $result->fetch_assoc())
 		{	 
 			// 2015-05-29 convert
 			$row = array_map('utf8_encode', $row);
+			//print_r($row);
 			
 			// get all the external jobs
 			$array_aux = array();
@@ -93,12 +98,17 @@ class alumniapi
 			. ' WHERE ej.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' AND ej.deleted = \'\''
 			. ' ORDER BY ej.start_date'
-			;
+			;			
 			$result2 = $this->db->query($query2);
+			
+			//echo $query2;
+			//if ($result2->num_rows == 0) then break;
+				
 			while ($row2 = $result2->fetch_assoc()) {
 				$array_aux[] = $row2;
 			}
 			$row['external_jobs'] = $array_aux;
+			//print_r($array_aux);
 
 			// get all the irb jobs
 			$array_aux = array();
@@ -118,27 +128,38 @@ class alumniapi
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' AND ij.deleted = \'\''
 			. ' ORDER BY ij.start_date'
-			;
+			;			
 			$result3 = $this->db->query($query3);
+			
+			//echo $query3;
+			//if ($result3->num_rows == 0) then break 2;
+				
 			while ($row3 = $result3->fetch_assoc()) {
 				$array_aux[] = $row3;
 			}
 			$row['irb_jobs'] = $array_aux;
-			
+			//print_r($array_aux);
+				
 			// get all the communications
 			$array_aux = array();
 			$query4 = 'SELECT co.alumni_communicationscode AS alumni_communicationscode'
 			. ' FROM alumni_personal_communications AS co'
 			. ' WHERE co.alumni_personalcode = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY co.alumni_communicationscode'
-			;
+			;			
 			$result4 = $this->db->query($query4);
+			
+			//echo $query4;
+			//if ($result4->num_rows == 0) then break 2;
+				
 			while ($row4 = $result4->fetch_assoc()) {
 				$array_aux[] = $row4;
 			}
 			$row['communications'] = $array_aux;
+			//print_r($array_aux);
 				
 			// add new element to the list
+			print_r($row);
 			$list[] = $row;
 		}
 		
