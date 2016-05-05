@@ -18,7 +18,9 @@ class alumniapi
 	function __construct()
 	{
 		$conf = json_decode(file_get_contents('configuration.json'), TRUE);
-		$this->db = new mysqli($conf["host"], $conf["user"], $conf["password"], $conf["database"]); // development	
+		$this->db = new mysqli($conf["host"], $conf["user"], $conf["password"], $conf["database"]); // development
+		// charset to utf8 to avoid problems using json_encode
+		$this->db->set_charset("utf8");
 	}
 
 	/**
@@ -159,7 +161,6 @@ class alumniapi
 			//print_r($array_aux);
 				
 			// add new element to the list
-			print_r($row);
 			$list[] = $row;
 		}
 		
