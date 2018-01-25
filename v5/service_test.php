@@ -55,10 +55,10 @@
 		<td><input name="nationality" type="text" size="50" maxlength="50" value="ESP"></td>
 		<td>eg. ESP</td>
 		</tr>
-	<!--tr>
+	<tr>
 		<td align="right">nationality_2</td>
 		<td><input name="nationality_2" type="text" size="50" maxlength="50"></td>
-	</tr-->
+	</tr>
 	<tr>
 		<td align="right">birth</td>
 		<td><input name="birth" type="text" size="50" maxlength="50"></td>
@@ -251,7 +251,7 @@
 </form>
 
 <h2>Test get_external_jobs_sectors</h2>
-<form name="form" method="post" action="http://alumniapi.irbbarcelona.pcb.ub.es/v3/index.php">
+<form name="form" method="post" action="index.php">
 	<input type="hidden" name="action" value="get_external_jobs_sectors">
 	<table>
 	<tr>

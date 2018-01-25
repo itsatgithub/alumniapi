@@ -18,7 +18,13 @@ class alumniapi
 	function __construct()
 	{
 		$conf = json_decode(file_get_contents('configuration.json'), TRUE);
-		$this->db = new mysqli($conf["host"], $conf["user"], $conf["password"], $conf["database"]); // development	
+		$this->db = new mysqli($conf["host"], $conf["user"], $conf["password"], $conf["database"]);
+		if ($this->db->connect_errno) {
+			return false;
+		}
+
+		// charset to utf8 to avoid problems using json_encode
+		$this->db->set_charset("utf8");
 	}
 
 	/**
@@ -67,13 +73,18 @@ class alumniapi
 		. ' AND pe.deleted = \'\''
 		. ($params['alumni_personalcode'] == ''? '' : ' AND pe.alumni_personalcode = \'' . $this->db->real_escape_string($params['alumni_personalcode']) . '\'')
 		. ' ORDER BY pe.alumni_personalcode'
-		;	
+		;			
 		$list = array();
 		$result = $this->db->query($query);
+		
+		//echo $query;
+		//if ($result->num_rows == 0) then break;
+				
 		while ($row = $result->fetch_assoc())
 		{	 
 			// 2015-05-29 convert
 			$row = array_map('utf8_encode', $row);
+			//print_r($row);
 			
 			// get all the external jobs
 			$array_aux = array();
@@ -93,12 +104,17 @@ class alumniapi
 			. ' WHERE ej.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' AND ej.deleted = \'\''
 			. ' ORDER BY ej.start_date'
-			;
+			;			
 			$result2 = $this->db->query($query2);
+			
+			//echo $query2;
+			//if ($result2->num_rows == 0) then break;
+				
 			while ($row2 = $result2->fetch_assoc()) {
 				$array_aux[] = $row2;
 			}
 			$row['external_jobs'] = $array_aux;
+			//print_r($array_aux);
 
 			// get all the irb jobs
 			$array_aux = array();
@@ -118,25 +134,35 @@ class alumniapi
 			. ' WHERE ij.personal = \'' . $row['alumni_personalcode'] . '\''
 			. ' AND ij.deleted = \'\''
 			. ' ORDER BY ij.start_date'
-			;
+			;			
 			$result3 = $this->db->query($query3);
+			
+			//echo $query3;
+			//if ($result3->num_rows == 0) then break 2;
+				
 			while ($row3 = $result3->fetch_assoc()) {
 				$array_aux[] = $row3;
 			}
 			$row['irb_jobs'] = $array_aux;
-			
+			//print_r($array_aux);
+				
 			// get all the communications
 			$array_aux = array();
 			$query4 = 'SELECT co.alumni_communicationscode AS alumni_communicationscode'
 			. ' FROM alumni_personal_communications AS co'
 			. ' WHERE co.alumni_personalcode = \'' . $row['alumni_personalcode'] . '\''
 			. ' ORDER BY co.alumni_communicationscode'
-			;
+			;			
 			$result4 = $this->db->query($query4);
+			
+			//echo $query4;
+			//if ($result4->num_rows == 0) then break 2;
+				
 			while ($row4 = $result4->fetch_assoc()) {
 				$array_aux[] = $row4;
 			}
 			$row['communications'] = $array_aux;
+			//print_r($array_aux);
 				
 			// add new element to the list
 			$list[] = $row;
@@ -155,7 +181,7 @@ class alumniapi
 	 * @return alumni_personalcode
 	 */
 	function save_personal($params)
-	{				
+	{		
 		// save personal data
 		if (empty($params['alumni_personalcode'])) // insert or update?
 		{	
@@ -170,7 +196,7 @@ class alumniapi
 			. ', irb_surname'
 			. ', gender'
 			. ', nationality'
-			. ', nationality_2'			
+			. ($params['nationality_2'] == ''? '' : ', nationality_2')			
 			. ', birth'
 			. ', email'
 			. ', url'
@@ -193,7 +219,7 @@ class alumniapi
 			. ', \'' . $this->db->real_escape_string($params['irb_surname']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['gender']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['nationality']) .'\''
-			. (empty($params['nationality_2'])? ', NULL' : ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\'')			
+			. ($params['nationality_2'] == ''? '' : ', \'' . $this->db->real_escape_string($params['nationality_2']) .'\'')			
 			. ', \'' . $this->db->real_escape_string($params['birth']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['email']) .'\''
 			. ', \'' . $this->db->real_escape_string($params['url']) .'\''
@@ -217,7 +243,6 @@ class alumniapi
 			. ', irb_surname = \'' . $this->db->real_escape_string($params['irb_surname']) .'\''
 			. ', gender = \'' . $this->db->real_escape_string($params['gender']) .'\''
 			. ', nationality = \'' . $this->db->real_escape_string($params['nationality']) .'\''
-			. ', nationality_2 = \'' . (empty($params['nationality_2'])? NULL : $this->db->real_escape_string($params['nationality_2']) . '\''
 			. ', nationality_2 = \'' . $this->db->real_escape_string($params['nationality_2']) .'\''
 			. ', birth = \'' . $this->db->real_escape_string($params['birth']) .'\''
 			. ', email = \'' . $this->db->real_escape_string($params['email']) .'\''
